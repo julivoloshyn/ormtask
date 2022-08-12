@@ -1,0 +1,46 @@
+{
+  "person": [
+    {
+      "name": "Igor",
+      "age": 32,
+      "salary": 2000,
+      "position": "middle",
+      "dateOfBirth": "1990-10-19"
+    },
+    {
+      "name": "Olga",
+      "age": 20,
+      "salary": 1500,
+      "position": "junior",
+      "dateOfBirth": "2002-11-18"
+    },
+    {
+      "name": "Paul",
+      "age": 28,
+      "salary": 6000,
+      "position": "senior",
+      "dateOfBirth": "1993-08-30"
+    },
+    {
+      "name": "Vlad",
+      "age": 25,
+      "salary": 400,
+      "position": "trainee",
+      "dateOfBirth": "1997-05-13"
+    },
+    {
+      "name": "Ivan",
+      "age": 40,
+      "salary": 10000,
+      "position": "senior",
+      "dateOfBirth": "1997-05-13"
+    },
+    {
+      "name": "Vadim",
+      "age": 29,
+      "salary": 4500,
+      "position": "senior",
+      "dateOfBirth": "1992-12-15"
+    }
+  ]
+}
