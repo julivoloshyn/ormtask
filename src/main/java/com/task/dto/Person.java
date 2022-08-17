@@ -1,9 +1,10 @@
-package com.task;
+package com.task.dto;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.math.BigInteger;
 import java.time.LocalDate;
 
 @NoArgsConstructor
@@ -12,8 +13,9 @@ import java.time.LocalDate;
 public class Person {
 
     private String name;
-    private int age;
-    private float salary;
+    private BigInteger age;
+    private BigInteger salary;
     private String position;
     private LocalDate dateOfBirth;
+    private Float xxx;
 }
