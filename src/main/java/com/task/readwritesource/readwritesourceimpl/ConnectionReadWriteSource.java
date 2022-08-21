@@ -19,6 +19,6 @@ public class ConnectionReadWriteSource implements DataReadWriteSource<ResultSet>
     @SneakyThrows
     public ResultSet getContent() {
         Statement statement = source.createStatement();
-        return statement.executeQuery("SELECT * FROM" + table);
+        return statement.executeQuery("SELECT * FROM " + table);
     }
 }

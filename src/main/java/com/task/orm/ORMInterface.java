@@ -10,4 +10,6 @@ public interface ORMInterface {
     @SneakyThrows
     <T> List<T> readAll(DataReadWriteSource<?> inputSource, Class<T> cls);
 
+    <T> void writeAll(DataReadWriteSource fileToInsert, List<?> objects);
+
 }
