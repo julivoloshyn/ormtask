@@ -1,6 +1,7 @@
 package com.task;
 
 import com.task.dto.Person;
+import com.task.dto.Person2;
 import com.task.orm.ORMInterface;
 import com.task.orm.ormimpl.ORM;
 import com.task.readwritesource.DataReadWriteSource;
@@ -9,10 +10,8 @@ import com.task.readwritesource.readwritesourceimpl.FileReadWriteSource;
 import lombok.SneakyThrows;
 
 import java.io.File;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import java.sql.*;
+import java.util.Collections;
 import java.util.List;
 import java.util.function.Function;
 
@@ -20,7 +19,7 @@ public class Main {
 
     private static final ORMInterface ORM = new ORM();
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) {
 
         withConnection(connection -> {
             process(connection);
@@ -52,17 +51,19 @@ public class Main {
     @SneakyThrows
     private static void process(Connection connection) {
 
-        DataReadWriteSource<ResultSet> rw = new ConnectionReadWriteSource(connection, "person");
+        DataReadWriteSource<ResultSet> rw = new ConnectionReadWriteSource(connection, "Person2");
         List<Person> listFromDB = ORM.readAll(rw, Person.class);
-        System.out.println(listFromDB);
+
+        Object objectToInsert = new Person2("Alex", "Senior", 30);
+        ORM.writeAll(rw, Collections.singletonList(objectToInsert));
 
     }
 
     @SneakyThrows
-    private static void withConnection(Function<Connection, Void> function) {
+    public static void withConnection(Function<Connection, Void> function) {
         try (Connection с = DriverManager.getConnection("jdbc:sqlite:sample.db")) {
             try (Statement stmt = с.createStatement()) {
-                stmt.executeUpdate("CREATE TABLE IF NOT EXISTS person " +
+                stmt.executeUpdate("CREATE TABLE IF NOT EXISTS Person2 " +
                         "(id INTEGER not NULL, " +
                         " name VARCHAR(255), " +
                         " position VARCHAR(255), " +
@@ -70,11 +71,10 @@ public class Main {
                         " PRIMARY KEY ( id ))");
 
                 stmt.executeUpdate("DELETE FROM person");
-                for (int index = 0; index < 10; index++) {
-                    stmt.executeUpdate("INSERT INTO person (name, position, age) VALUES ('1', '1', 1)");
-                }
+                stmt.executeUpdate("INSERT INTO person (name, position, age) VALUES ('Josh', 'Junior', 19)");
             }
             function.apply(с);
         }
     }
+
 }

@@ -1,8 +1,8 @@
 name, age, salary, position, dateOfBirth, xxx
-Igor, 32, 2000, middle, 1990-10-19, null
-Ivan, 30, 3000, middle, 1992-11-04, null
-Olga, 20, 1500, junior, 2002-02-09, null
-Misha, 18, 400, trainee, 2004-01-20, null
-Petya, 22, 5000, senior, 2000-08-17, null
-Sonya, 35, 6000, senior, 1987-06-06, null
-Kolya, 40, 10000, senior, 1980-12-31, null
+Igor, 32, 2000, middle, 1990-10-19, 0.0
+Ivan, 30, 3000, middle, 1992-11-04, 0.0
+Olga, 20, 1500, junior, 2002-02-09, 0.0
+Misha, 18, 400, trainee, 2004-01-20, 0.0
+Petya, 22, 5000, senior, 2000-08-17, 0.0
+Sonya, 35, 6000, senior, 1987-06-06, 0.0
+Kolya, 40, 10000, senior, 1980-12-31, 0.0

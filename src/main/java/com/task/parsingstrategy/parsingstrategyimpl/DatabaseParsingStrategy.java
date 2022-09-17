@@ -1,6 +1,5 @@
 package com.task.parsingstrategy.parsingstrategyimpl;
 
-
 import com.task.Table;
 import com.task.parsingstrategy.ParsingStrategy;
 import com.task.readwritesource.readwritesourceimpl.ConnectionReadWriteSource;
