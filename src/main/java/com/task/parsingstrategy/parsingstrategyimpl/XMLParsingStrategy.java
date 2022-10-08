@@ -2,7 +2,7 @@ package com.task.parsingstrategy.parsingstrategyimpl;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
-import com.task.Table;
+import com.task.parsingstrategy.table.Table;
 import com.task.parsingstrategy.ParsingStrategy;
 import com.task.readwritesource.readwritesourceimpl.FileReadWriteSource;
 import lombok.SneakyThrows;
@@ -13,6 +13,13 @@ import java.util.Map;
 
 public class XMLParsingStrategy implements ParsingStrategy<FileReadWriteSource> {
 
+
+    /**
+     * Puts xml content to Table.
+     *
+     * @param content File content.
+     * @return Table.
+     */
     @SneakyThrows
     @Override
     public Table parseToTable(FileReadWriteSource content) {
@@ -23,6 +30,12 @@ public class XMLParsingStrategy implements ParsingStrategy<FileReadWriteSource> 
         return new Table(result);
     }
 
+    /**
+     * Builds filled map with values from json file.
+     *
+     * @param tree Array json node.
+     * @return Map (key, Map(key, value)).
+     */
     private Map<Integer, Map<String, String>> buildTable(JsonNode tree) {
         Map<Integer, Map<String, String>> map = new LinkedHashMap<>();
         int index = 0;
@@ -38,6 +51,12 @@ public class XMLParsingStrategy implements ParsingStrategy<FileReadWriteSource> 
         return map;
     }
 
+    /**
+     * Puts each row from json file to a map.
+     *
+     * @param node Row in json file.
+     * @return Map (key, value).
+     */
     private Map<String, String> buildRow(JsonNode node) {
         Map<String, String> item = new LinkedHashMap<>();
         Iterator<Map.Entry<String, JsonNode>> itr = node.fields();

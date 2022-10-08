@@ -16,6 +16,11 @@ import java.util.List;
 public class XMLWritingStrategy implements WritingStrategy {
     private File file;
 
+    /**
+     * Parses list to xml format.
+     *
+     * @param objects List of content.
+     */
     @SneakyThrows
     @Override
     public void write(List<?> objects) {

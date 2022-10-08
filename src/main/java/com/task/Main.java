@@ -28,7 +28,7 @@ public class Main {
 
         //reading files
         File fileCSVr = new File("src/main/resources/fileToRead.csv");
-        List<Person> listFromCSV = ORM.readAll(new FileReadWriteSource(fileCSVr), Person.class);
+        List<Person2> listFromCSV = ORM.readAll(new FileReadWriteSource(fileCSVr), Person2.class);
 
         File fileXMLr = new File("src/main/resources/fileToRead.xml");
         List<Person> listFromXML = ORM.readAll(new FileReadWriteSource(fileXMLr), Person.class);
@@ -48,6 +48,11 @@ public class Main {
 
     }
 
+    /**
+     * Writes and reads database.
+     *
+     * @param connection Connection.
+     */
     @SneakyThrows
     private static void process(Connection connection) {
 
@@ -59,6 +64,11 @@ public class Main {
 
     }
 
+    /**
+     * Connects to database.
+     *
+     * @param function Function.
+     */
     @SneakyThrows
     public static void withConnection(Function<Connection, Void> function) {
         try (Connection с = DriverManager.getConnection("jdbc:sqlite:sample.db")) {

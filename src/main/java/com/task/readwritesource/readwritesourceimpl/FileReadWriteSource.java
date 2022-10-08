@@ -14,6 +14,11 @@ import java.nio.charset.StandardCharsets;
 public class FileReadWriteSource implements DataReadWriteSource<String> {
     private final File source;
 
+    /**
+     * Reads file content to string.
+     *
+     * @return Content from file.
+     */
     @Override
     @SneakyThrows
     public String getContent() {

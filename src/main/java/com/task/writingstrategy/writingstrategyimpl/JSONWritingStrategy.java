@@ -1,6 +1,5 @@
 package com.task.writingstrategy.writingstrategyimpl;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
@@ -12,7 +11,6 @@ import lombok.SneakyThrows;
 import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.text.SimpleDateFormat;
 import java.util.List;
 
 @NoArgsConstructor
@@ -20,6 +18,11 @@ import java.util.List;
 public class JSONWritingStrategy implements WritingStrategy {
     private File file;
 
+    /**
+     * Parses list to json format.
+     *
+     * @param objects List of content.
+     */
     @SneakyThrows
     @Override
     public void write(List<?> objects) {

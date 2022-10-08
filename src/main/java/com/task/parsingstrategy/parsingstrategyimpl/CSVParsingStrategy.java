@@ -1,6 +1,6 @@
 package com.task.parsingstrategy.parsingstrategyimpl;
 
-import com.task.Table;
+import com.task.parsingstrategy.table.Table;
 import com.task.parsingstrategy.ParsingStrategy;
 import com.task.readwritesource.readwritesourceimpl.FileReadWriteSource;
 
@@ -14,6 +14,12 @@ public class CSVParsingStrategy implements ParsingStrategy<FileReadWriteSource> 
     public static final String DELIMITER = ", ";
     public static final String COMMENT = "--";
 
+    /**
+     * Puts content to Table.
+     *
+     * @param content File content.
+     * @return Table.
+     */
     @Override
     public Table parseToTable(FileReadWriteSource content) {
         List<String> lines = Arrays.asList(content.getContent().split(System.lineSeparator()));
@@ -22,6 +28,13 @@ public class CSVParsingStrategy implements ParsingStrategy<FileReadWriteSource> 
         return new Table(result);
     }
 
+    /**
+     * Builds table from rows.
+     *
+     * @param lines List of lines.
+     * @param mapping First line (headers).
+     * @return Map (key, Map(key, value)).
+     */
     private Map<Integer, Map<String, String>> buildTable(List<String> lines, Map<Integer, String> mapping) {
         Map<Integer, Map<String, String>> result = new LinkedHashMap<>();
 
@@ -33,6 +46,13 @@ public class CSVParsingStrategy implements ParsingStrategy<FileReadWriteSource> 
         return result;
     }
 
+    /**
+     * Processes rows.
+     *
+     * @param mapping Row in json file.
+     * @param line Row in json file.
+     * @return Map (key, value).
+     */
     private Map<String, String> buildRow(Map<Integer, String> mapping, String line) {
         Map<String, String> nameToValueMap = new LinkedHashMap<>();
         String[] rowItems = splitLine(line);
@@ -45,6 +65,12 @@ public class CSVParsingStrategy implements ParsingStrategy<FileReadWriteSource> 
         return nameToValueMap;
     }
 
+    /**
+     * Processes first line and deletes comment.
+     *
+     * @param firstLine First line.
+     * @return Map (key, value).
+     */
     private Map<Integer, String> buildMapping(String firstLine) {
         Map<Integer, String> map = new LinkedHashMap<>();
         String[] array = splitLine(firstLine);
@@ -61,6 +87,13 @@ public class CSVParsingStrategy implements ParsingStrategy<FileReadWriteSource> 
         return map;
     }
 
+
+    /**
+     * Splits lines by delimiter.
+     *
+     * @param line String.
+     * @return Array of strings.
+     */
     private static String[] splitLine(String line) {
         return line.split(DELIMITER);
     }

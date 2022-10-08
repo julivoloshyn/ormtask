@@ -1,6 +1,6 @@
 package com.task.writingstrategy.writingstrategyimpl;
 
-import com.task.ModelSQLHelper;
+import com.task.sql.ModelSQLHelper;
 import com.task.writingstrategy.WritingStrategy;
 
 import lombok.SneakyThrows;
@@ -13,6 +13,11 @@ import static com.task.Main.withConnection;
 
 public class DatabaseWritingStrategy implements WritingStrategy {
 
+    /**
+     * Parses list to db.
+     *
+     * @param objects List of content.
+     */
     @SneakyThrows
     @Override
     public void write(List<?> objects) {

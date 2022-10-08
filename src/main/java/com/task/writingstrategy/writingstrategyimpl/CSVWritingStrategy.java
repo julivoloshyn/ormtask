@@ -15,8 +15,14 @@ import java.util.stream.Collectors;
 
 @AllArgsConstructor
 public class CSVWritingStrategy implements WritingStrategy {
+
     private File file;
 
+    /**
+     * Parses list to csv format.
+     *
+     * @param objects List of content.
+     */
     @SneakyThrows
     @Override
     public void write(List<?> objects) {
@@ -31,6 +37,12 @@ public class CSVWritingStrategy implements WritingStrategy {
         FileUtils.writeStringToFile(file, data, StandardCharsets.UTF_8);
     }
 
+    /**
+     * Converts fields to string.
+     *
+     * @param object Object.
+     * @param fields List of fields.
+     */
     @SneakyThrows
     public String convertFieldsToString(Object object, List<Field> fields){
         List<String> person = new ArrayList<>();
@@ -44,6 +56,11 @@ public class CSVWritingStrategy implements WritingStrategy {
         return String.join(", ", person);
     }
 
+    /**
+     * Coverts first line to headers.
+     *
+     * @param fields List of fields.
+     */
     private String convertToHeader(List<Field> fields) {
         List<String> headers = new ArrayList<>();
 

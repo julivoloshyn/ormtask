@@ -1,6 +1,6 @@
 package com.task.orm.ormimpl;
 
-import com.task.Table;
+import com.task.parsingstrategy.table.Table;
 import com.task.orm.ORMInterface;
 import com.task.parsingstrategy.ParsingStrategy;
 import com.task.parsingstrategy.parsingstrategyimpl.CSVParsingStrategy;
@@ -27,14 +27,32 @@ import java.util.function.Function;
 
 public class ORM implements ORMInterface {
 
-    // for parsing strategy
+    //for parsing strategy
+
+    /**
+     * Fills model list.
+     *
+     * @param inputSource Connection.
+     * @param cls Unknown class.
+     * @param <T> Unknown type.
+     * @return Model list.
+     */
     @Override
     @SneakyThrows
     public <T> List<T> readAll(DataReadWriteSource<?> inputSource, Class<T> cls) {
         Table table = convertToTable(inputSource);
+
         return convertTableToListOfClasses(table, cls);
     }
 
+    /**
+     * Fills values into model fields.
+     *
+     * @param table Table - Map(key, value).
+     * @param cls Unknown class.
+     * @param <T> Unknown type.
+     * @return Model list.
+     */
     private <T> List<T> convertTableToListOfClasses(Table table, Class<T> cls) {
         List<T> result = new ArrayList<>();
 
@@ -47,6 +65,14 @@ public class ORM implements ORMInterface {
         return result;
     }
 
+    /**
+     * Sets up values into model class.
+     *
+     * @param row Key, value.
+     * @param cls Unknown class.
+     * @param <T> Unknown type.
+     * @return Cls instance.
+     */
     @SneakyThrows
     private <T> T reflectTableRowToClass(Map<String, String> row, Class<T> cls) {
         T instance = cls.getDeclaredConstructor().newInstance();
@@ -63,11 +89,19 @@ public class ORM implements ORMInterface {
         return instance;
     }
 
+    /**
+     * Fills values into fields.
+     *
+     * @param field From unknown class.
+     * @param value To fill field.
+     * @return Required object.
+     */
     private static Object transformValueToFieldType(Field field, String value) {
         Map<Class<?>, Function<String, Object>> typeToFunction = new LinkedHashMap<>();
 
         typeToFunction.put(String.class, s -> s);
-        typeToFunction.put(int.class, Integer::parseInt);
+        Function<String, Object> parseInt = Integer::parseInt;
+        typeToFunction.put(int.class, parseInt);
         typeToFunction.put(Float.class, Float::parseFloat);
         typeToFunction.put(LocalDate.class, LocalDate::parse);
         typeToFunction.put(LocalDateTime.class, LocalDate::parse);
@@ -79,6 +113,12 @@ public class ORM implements ORMInterface {
         }).apply(value);
     }
 
+    /**
+     * Checks kind of input source.
+     *
+     * @param dataInputSource From unknown class.
+     * @return Table of values.
+     */
     private Table convertToTable(DataReadWriteSource dataInputSource) {
 
         if (dataInputSource instanceof ConnectionReadWriteSource) {
@@ -94,6 +134,12 @@ public class ORM implements ORMInterface {
         }
     }
 
+    /**
+     * Checks extension of file by characters.
+     *
+     * @param inputSource From unknown class.
+     * @return Parsing strategy.
+     */
     private ParsingStrategy<FileReadWriteSource> getStringParsingStrategy(FileReadWriteSource inputSource) {
         String content = inputSource.getContent();
         char firstChar = content.charAt(0);
@@ -110,6 +156,13 @@ public class ORM implements ORMInterface {
     }
 
     //for writing strategy
+
+    /**
+     * Checks kind of writing source and writes to file.
+     *
+     * @param fileToInsert From unknown class.
+     * @param objects List to write.
+     */
     @Override
     public <T> void writeAll(DataReadWriteSource fileToInsert, List<?> objects) {
 
@@ -123,6 +176,12 @@ public class ORM implements ORMInterface {
         }
     }
 
+    /**
+     * Checks extension of file to choose a writing strategy.
+     *
+     * @param fileToInsert From unknown class.
+     * @return Writing strategy.
+     */
     private WritingStrategy getTypeOfFileToInsert(DataReadWriteSource fileToInsert) {
         String extension = FilenameUtils
                 .getExtension(((FileReadWriteSource) fileToInsert).getSource().getName());
